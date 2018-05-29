@@ -1,0 +1,26 @@
+Sync from Windows Server to Backblaze via ps console, the fast and easy way for testing direct upload to bucket.
+
+Using Windows Powershell the --excludeRegex could use as follows
+PS C:\Program Files (x86)\Python36-32\Scripts> .\b2 sync --excludeRegex 'Folder1|folder2' \\?\M:\Prog\Temp\backup b2://bucket
+
+What happens using Folder 1-3 in our backup subdirectory
+M:\Prog\Temp\backup\Folder1 will not sync
+M:\Prog\Temp\backup\Folder2 will also not sync
+
+M:\Prog\Temp\backup\Folder3 or each other Folder with files will sync
+
+Info: --excludeRegex 'Folder1|folder2' Multi Folder only with ps not old CMD, empty folder will not sync
+
+CMD Sample 1:
+C:\Program Files (x86)\Python36-32\Scripts>b2 sync --excludeRegex Ordner1 \\?\M:\Prog\Temp\backup b2://Admins
+upload Ordner2/Bild_05.jpg
+upload Ordner2/Bild_04.jpg
+upload Ordner3/Bild_08.jpg
+upload Ordner3/Bild_07.jpg
+upload Ordner2/Bild_03.jpg
+upload Ordner3/Bild_06.jpg
+
+PS Sample 2:
+PS C:\Program Files (x86)\Python36-32\Scripts> .\b2 sync --excludeRegex 'DfsrPrivate|System Volume Information' --threads 20 --keepDays 99 --replaceNewer \\?\F:\QM b2://Bucket/QM
+
+QM folder on Drive F: will be sync without System Volume Information and lokal DFS Replication Folder
